@@ -1,20 +1,66 @@
-const SideNavigation = ({ items, onClick, selectedItemId }) => {
+// SideNavigation.js
+
+import { useState } from "react";
+
+const SideNavigation = ({ content, onHeadingClick }) => {
+  const [openHeadings, setOpenHeadings] = useState([]);
+
+  const toggleHeading = (headingId) => {
+    setOpenHeadings((prevOpenHeadings) => {
+      if (prevOpenHeadings.includes(headingId)) {
+        return prevOpenHeadings.filter((id) => id !== headingId);
+      } else {
+        return [...prevOpenHeadings, headingId];
+      }
+    });
+  };
+
+  const hasChildren = (headings, parentId) => {
+    return headings.some((heading) => heading.parent_id === parentId);
+  };
+
+  const renderHeadings = (content, parentId = "") => {
+    if (!content) return "No content found.";
+
+    const filteredHeadings = content.filter(
+      (heading) => heading.parent_id === parentId
+    );
+
+    return filteredHeadings.map((heading) => {
+      return (
+        <div key={heading.id} className={"flex flex-col cursor-pointer ml-4"}>
+          <div className="flex items-center">
+            {hasChildren(content, heading.id) ? (
+              <button
+                onClick={() => toggleHeading(heading.id)}
+                className="mx-2 text-gray-500 focus:outline-none"
+              >
+                {openHeadings.includes(heading.id) ? "▼" : "►"}
+              </button>
+            ) : (
+              <div className="mx-4" />
+            )}
+
+            <p
+              className="text-blue-500"
+              onClick={() => onHeadingClick(heading)}
+            >
+              {heading.name}
+            </p>
+          </div>
+          {openHeadings.includes(heading.id) &&
+            renderHeadings(content, heading.id)}
+        </div>
+      );
+    });
+  };
+
   return (
-    <nav className="flex flex-col bg-gray-800 w-1/4 h-full p-4">
-      <ul>
-        {items?.map((item) => (
-          <li
-            key={item.id}
-            className={`cursor-pointer p-2 ${
-              selectedItemId === item.id ? "bg-gray-700" : ""
-            }`}
-            onClick={() => onClick(item.id)}
-          >
-            {item.label}
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div className="flex flex-col w-1/4 p-2 bg-white">
+      <div className="border border-solid p-2" style={{ minHeight: "98vh" }}>
+        {renderHeadings(content.document)}
+      </div>
+    </div>
   );
 };
 

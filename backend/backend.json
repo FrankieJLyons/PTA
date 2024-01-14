@@ -418,17 +418,21 @@
           "id": "fa13445d-1875-4c2b-b326-605ab92baa81",
           "name": "Chapter 2",
           "level": 1,
-          "parent_id": ""
+          "parent_id": "",
+          "content": ""
         },
         {
           "id": "47b939e4-8bf8-4fcf-8138-096c56d6621c",
           "name": "Chapter 3",
-          "level": 1
+          "level": 1,
+          "parent_id": "",
+          "content": ""
         },
         {
           "id": "fc71a828-da70-461f-b91f-c6f4f961ca3c",
           "name": "Chapter 4",
           "level": 1,
+          "parent_id": "",
           "content": "TBD"
         },
         {
