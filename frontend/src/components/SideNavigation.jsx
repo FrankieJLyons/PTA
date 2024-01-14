@@ -1,5 +1,3 @@
-// SideNavigation.js
-
 import { useState } from "react";
 
 const SideNavigation = ({ content, onHeadingClick }) => {
@@ -28,7 +26,7 @@ const SideNavigation = ({ content, onHeadingClick }) => {
 
     return filteredHeadings.map((heading) => {
       return (
-        <div key={heading.id} className={"flex flex-col cursor-pointer ml-4"}>
+        <div key={heading.name} className={"flex flex-col ml-4"}>
           <div className="flex items-center">
             {hasChildren(content, heading.id) ? (
               <button
@@ -42,7 +40,7 @@ const SideNavigation = ({ content, onHeadingClick }) => {
             )}
 
             <p
-              className="text-blue-500"
+              className="text-blue-500 cursor-pointer"
               onClick={() => onHeadingClick(heading)}
             >
               {heading.name}

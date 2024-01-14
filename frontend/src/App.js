@@ -5,12 +5,15 @@ import TextViewer from "./components/TextViewer";
 
 const App = () => {
   const [content, setContent] = useState([]);
+  const [selectedHeading, setSelectedHeading] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3004/data");
-        setContent(response.data.content);
+        const data = response.data.content;
+        setContent(data);
+        setSelectedHeading(data.document[0]);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -19,11 +22,15 @@ const App = () => {
     fetchData();
   }, []);
 
+  const onHeadingClick = (selectedHeading) => {
+    setSelectedHeading(selectedHeading);
+  };
+
   return (
     <div key="App">
       <div key="content-container" className="flex flex-row">
-        <SideNavigation content={content} onHeadingClick={() => {}} />
-        <TextViewer content={[]} />
+        <SideNavigation content={content} onHeadingClick={onHeadingClick} />
+        <TextViewer content={content} selectedHeading={selectedHeading} />
       </div>
     </div>
   );
