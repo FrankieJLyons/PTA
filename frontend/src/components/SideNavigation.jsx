@@ -54,7 +54,7 @@ const SideNavigation = ({ content, onHeadingClick }) => {
   };
 
   return (
-    <div className="flex flex-col w-1/4 p-2 bg-white">
+    <div id="side-navigation" className="flex flex-col w-1/4 p-2 bg-white">
       <div className="border border-solid p-2" style={{ minHeight: "98vh" }}>
         {renderHeadings(content.document)}
       </div>

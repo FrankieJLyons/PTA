@@ -17,7 +17,7 @@ const TextViewer = ({ content, selectedHeading }) => {
   );
 
   return (
-    <div className="flex flex-col w-3/4 p-2 bg-white">
+    <div id="text-viewer" className="flex flex-col w-3/4 p-2 bg-white">
       <div className="border border-solid p-2" style={{ minHeight: "98vh" }}>
         {filteredContent.map((item) => {
           let name = item.name;
